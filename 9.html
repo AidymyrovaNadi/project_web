@@ -1,0 +1,135 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Обробка дат</title>
+		<script language="JavaScript">
+			Date.prototype.getWeek = function() {
+				var onejan = new Date(this.getFullYear(),0,1);
+				return Math.ceil((((this - onejan) / 86400000) + onejan.getDay()+1)/7);
+			}
+			function get_week(obj){
+				t = new Date()
+				date_arr = obj.fye.value.split("-")
+				t.setYear(Number(date_arr[0]))
+				t.setMonth(Number(date_arr[1])-1)
+				t.setDate(Number(date_arr[2]))
+				obj.res.value = t.getWeek()
+			}
+			function getZodiacSign(obj){
+				t = new Date()
+				date_arr = obj.fye.value.split("-")
+				month = Number(date_arr[1])
+				day = Number(date_arr[2])
+				var zodiacSigns = {
+					'capricorn':'Козеріг',
+					'aquarius':'Водолій',
+					'pisces':'Риби',
+					'aries':'Овен',
+					'taurus':'Телець',
+					'gemini':'Близнюки',
+					'cancer':'Рак',
+					'leo':'Лев',
+					'virgo':'Діва',
+					'libra':'Терези',
+					'scorpio':'Скорпіон',
+					'sagittarius':'Стрілець'
+				}
+				if((month == 1 && day <= 20) || (month == 12 && day >=22)) {
+					obj.res.value = zodiacSigns.capricorn;
+				} else if ((month == 1 && day >= 21) || (month == 2 && day <= 18)) {
+					obj.res.value = zodiacSigns.aquarius;
+				} else if((month == 2 && day >= 19) || (month == 3 && day <= 20)) {
+					obj.res.value = zodiacSigns.pisces;
+				} else if((month == 3 && day >= 21) || (month == 4 && day <= 20)) {
+					obj.res.value = zodiacSigns.aries;
+				} else if((month == 4 && day >= 21) || (month == 5 && day <= 20)) {
+					obj.res.value = zodiacSigns.taurus;
+				} else if((month == 5 && day >= 21) || (month == 6 && day <= 20)) {
+					obj.res.value = zodiacSigns.gemini;
+				} else if((month == 6 && day >= 22) || (month == 7 && day <= 22)) {
+					obj.res.value = zodiacSigns.cancer;
+				} else if((month == 7 && day >= 23) || (month == 8 && day <= 23)) {
+					obj.res.value = zodiacSigns.leo;
+				} else if((month == 8 && day >= 24) || (month == 9 && day <= 23)) {
+					obj.res.value = zodiacSigns.virgo;
+				} else if((month == 9 && day >= 24) || (month == 10 && day <= 23)) {
+					obj.res.value = zodiacSigns.libra;
+				} else if((month == 10 && day >= 24) || (month == 11 && day <= 22)) {
+					obj.res.value = zodiacSigns.scorpio;
+				} else if((month == 11 && day >= 23) || (month == 12 && day <= 21)) {
+					obj.res.value = zodiacSigns.sagittarius;
+				}
+			}
+			function getEasternYear(obj){
+				t = new Date()
+				date_arr = obj.fye.value.split("-")
+				year = Number(date_arr[0])
+				year_zero = (year % 60) - 4
+				year_twelve = ((year % 60) - 4) % 12
+				s = "Рік "
+				if (year_zero >= 0 && year_zero < 12) {
+					s += "зеленого " + animal(year_twelve)
+				} else if (year_zero >= 12 && year_zero < 24) {
+					s += "червоного " + animal(year_twelve)
+				} else if (year_zero >= 24 && year_zero < 36) {
+					s += "жовтого " + animal(year_twelve)
+				} else if (year_zero >= 36 && year_zero < 48) {
+					s += "білого " + animal(year_twelve)
+				} else if (year_zero >= 48 && year_zero < 60) {
+					s += "чорного " + animal(year_twelve)
+				}
+				obj.res.value = s
+			}
+			function animal(year_twelve) {
+				if(year_twelve == 0) {
+					return "пацюка"
+				} else if(year_twelve == 1) {
+					return "корови"
+				} else if(year_twelve == 2) {
+					return "тигра"
+				} else if(year_twelve == 3) {
+					return "зайця"
+				} else if(year_twelve == 4) {
+					return "дракона"
+				} else if(year_twelve == 5) {
+					return "змії"
+				} else if(year_twelve == 6) {
+					return "коня"
+				} else if(year_twelve == 7) {
+					return "вівці"
+				} else if(year_twelve == 8) {
+					return "мавпи"
+				} else if(year_twelve == 9) {
+					return "курки"
+				} else if(year_twelve == 10) {
+					return "собаки"
+				} else if(year_twelve == 11) {
+					return "свині"
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<h4>Завдання 1. Номер тижня</h4>
+		<form name="form1">
+			Вкажіть дату: <input type="date" size="8" name="fye"><br>
+			Номер тижня: <input type="text" size="8" name="res"><br><br>
+			<input type="button" value="Обчислити" onClick="get_week(form1)">
+			<input type="reset" value="Скасувати">
+		</form>
+		<h4>Завдання 2. Знак зодіаку</h4>
+		<form name="form2">
+			Вкажіть дату: <input type="date" size="8" name="fye"><br>
+			Знак зодіаку: <input type="text" size="8" name="res"><br><br>
+			<input type="button" value="Обчислити" onClick="getZodiacSign(form2)">
+			<input type="reset" value="Скасувати">
+		</form>
+		<h4>Завдання 3. Назва року за східним календарем</h4>
+		<form name="form3">
+			Вкажіть дату: <input type="date" size=8 name="fye"><br>
+			Назва: <input type="text" size="20" name="res"><br><br>
+			<input type="button" value="Обчислити" onClick="getEasternYear(form3)">
+			<input type="reset" value="Скасувати">
+		</form>
+	</body>
+</html>

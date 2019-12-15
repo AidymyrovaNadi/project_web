@@ -1,0 +1,68 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Випадаючі списки</title>
+		<script language="JavaScript">
+			s=""
+			sum=0
+			function change_bg(color, mode, image){
+				if (mode == 1)
+					document.getElementById("chosen_table").style.backgroundColor = color
+				else
+					document.getElementById("chosen_table").style.backgroundImage = "url('" + image + "')"
+			}
+			function gr(obj,m){
+				r=100*(Number(((obj.elements[0])[m]).value)+1)
+				s+=((obj.elements[0])[m]).text+"\r\n"
+				obj.restext.value=s
+				sum+=r
+				obj.res.value=r
+			}
+		</script>
+	</head>
+	<body>
+				
+		<form name="table_thing">
+			<h3>Завдання 1. Змінити фон<br></h3>
+			<select size=2 name="bg">
+				<option value=1>Колір<br>
+				<option value=0>Картинка<br>
+			</select><br><br>
+			Оберіть колір: <input type="color" name="chosen_color"><br>
+			Посилання на зображення: <input type="text" size=100 name="chosen_image"><br>
+			<input type="button" value="Змінити" onClick="change_bg(document.table_thing.chosen_color.value, document.table_thing.bg.value, document.table_thing.chosen_image.value)">
+			<input type="reset">
+		</form>
+		<br>
+		<table border=1 cellspacing=0 width="50%" height="300" id="chosen_table">
+			<tr><td></td></tr>
+		</table>
+		
+		<form name="price_calc">
+			<h3>Завдання 2. Обчислення вартості</h3>
+			<table border=1>
+				<tr>
+					<th>Обраний товар</th>
+					<th>Результат</th>
+				</tr>
+				<tr>
+					<td valign=top>
+						<select name="data" size=3 onChange="gr(price_calc,price_calc.data.value)">
+							<option value=0>Товар 1
+							<option value=1>Товар 2
+							<option value=2>Товар 3
+						</select><br>
+						<input type="text" name="res" size=15>
+					</td>
+					<td>
+						<textarea name="restext" cols=18 rows=6></textarea><br>
+						<input type="button" value="Сума" onClick="price_calc.resgr.value=sum">
+						<input type="text" name="resgr" size=10>
+					</td>
+				</tr>
+			</table>
+			<br>
+			<input type="reset" value="Очистити" onClick="sum=0; s=''">
+		</form>
+	</body>
+</html>

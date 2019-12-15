@@ -1,0 +1,61 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Рядки</title>
+		<script language="JavaScript">
+			function word_count(obj){
+				obj.result.value = obj.textin.value.split(" ").length
+			}
+			function word_change(obj){
+				arr = obj.textin.value.split(" ")
+				f_word = obj.data1.value
+				r_word = obj.data2.value
+				str = ""
+				for(i=0; i<arr.length; i++){
+					if (arr[i] === f_word)
+						str += r_word + " "
+					else
+						str += arr[i] + " "
+				}
+				obj.textin.value = str
+			}
+			function spc_rep(obj){
+				str = obj.textin.value.split(" ")
+				sres = ""
+				for(i=0; i<str.length; i++){
+					str[i] = str[i].trim()
+					sres += str[i]
+					if (str[i] != "")
+						sres += " "
+				}
+				obj.textin.value = sres
+			}
+		</script>
+	</head>
+	<body>
+		<h4>Завдання 1. Кількість слів</h4>
+		<form name="form1">
+			Введіть текст:<br>
+			<textarea name="textin" rows=4 cols=20></textarea><br><br>
+			Кількість слів у тексті: <input type="text" name="result" size=8><br><br>
+			<input type="button" value="Обчислити" onClick="word_count(form1)">
+			<input type="reset" value="Скасувати">
+		</form>
+		<h4>Завдання 2. Заміна слова</h4>
+		<form name="form2">
+			Введіть текст:<br>
+			<textarea name="textin" rows=4 cols=20></textarea><br>
+			Замінити слово: <input type="text" name="data1" size="8"><br>
+			Словом: <input type="text" name="data2" size="8"><br><br>
+			<input type="button" value="Замінити" onClick="word_change(form2)">
+			<input type="reset" value="Скасувати">
+		</form>
+		<h4>Завдання 3. Заміна пробілів</h4>
+		<form name="form3">
+			Введіть текст:<br>
+			<textarea name="textin" rows=4 cols=20></textarea><br><br>
+			<input type="button" value="Прибрати пробіли" onClick="spc_rep(form3)">
+			<input type="reset" value="Скасувати">
+		</form>
+	</body>
+</html>
